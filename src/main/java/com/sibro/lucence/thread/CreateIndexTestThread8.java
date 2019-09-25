@@ -1,14 +1,11 @@
 package com.sibro.lucence.thread;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.sibro.lucence.dto.BookDTO;
 import com.sibro.lucence.mapper.BookMapper;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -26,8 +23,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class CreateIndexTestThread implements Runnable {
+public class CreateIndexTestThread8 implements Runnable  {
     @Autowired
     private BookMapper bookMapper;
 
@@ -39,7 +40,6 @@ public class CreateIndexTestThread implements Runnable {
             e.printStackTrace();
         }
     }
-
     //分词
     @Test
     public void testCreateIndex() throws Exception{
@@ -51,11 +51,11 @@ public class CreateIndexTestThread implements Runnable {
         for (BookDTO bk : listBook) {
 
             Document doc = new Document();
-            doc.add(new TextField("id", String.valueOf(bk.getId()), Store.YES));// Store.YES:表示存储到文档域中
-            doc.add(new TextField("name", bk.getName(), Store.YES));
-            doc.add(new TextField("price", String.valueOf(bk.getPrice()), Store.YES));
-            doc.add(new TextField("pic", bk.getPic(), Store.YES));
-            doc.add(new TextField("desc", bk.getDesc(), Store.YES));
+            doc.add(new TextField("id", String.valueOf(bk.getId()), Field.Store.YES));// Store.YES:表示存储到文档域中
+            doc.add(new TextField("name", bk.getName(), Field.Store.YES));
+            doc.add(new TextField("price", String.valueOf(bk.getPrice()), Field.Store.YES));
+            doc.add(new TextField("pic", bk.getPic(), Field.Store.YES));
+            doc.add(new TextField("desc", bk.getDesc(), Field.Store.YES));
 
             // 把Document放到list中
             documents.add(doc);
