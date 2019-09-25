@@ -1,5 +1,6 @@
 package com.sibro.lucence.thread;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,10 +68,10 @@ public class CreateIndexTestThread implements Runnable {
 //        Analyzer analyzer = new IKAnalyzer();
         Analyzer analyzer = new StandardAnalyzer();
         //    4. 创建IndexWriterConfig配置信息类
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_10_3, analyzer);
+        IndexWriterConfig config = new IndexWriterConfig( analyzer);
 
         //    5. 创建Directory对象，声明索引库存储位置
-        Directory directory = FSDirectory.open(new File("D:\\lucence"));
+        Directory directory = FSDirectory.open(Paths.get("D:\\lucence"));
 
         //    6. 创建IndexWriter写入对象
         IndexWriter writer = new IndexWriter(directory, config);
@@ -98,7 +99,7 @@ public class CreateIndexTestThread implements Runnable {
         Query query = queryParser.parse("name:java");
 
         // 2. 创建Directory流对象,声明索引库位置
-        Directory directory = FSDirectory.open(new File("D:\\lucence"));
+        Directory directory = FSDirectory.open(Paths.get("D:\\lucence"));
 
         // 3. 创建索引读取对象IndexReader
         IndexReader indexReader = DirectoryReader.open(directory);
